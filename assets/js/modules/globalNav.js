@@ -43,7 +43,10 @@ define([
             "sourceSubhead" : "source_subhead",
             "catalogText": "source_catalog_tx",
             "showPreview": "__show-preview",
-            "updateButton": "source_catalog_update-button"
+            "updateButton": "source_catalog_update-button",
+            "sortList": "source_sort-list",
+            "sortListItem": "source_sort-list_li",
+            "sortListItemLink": "source_sort-list_a"
         },
         "labels": {
             "noDataInCat": "No data in specified nav category",
@@ -53,7 +56,11 @@ define([
             "loading": "Loading...",
             "hidePreview": "Hide thumbnails",
             "showPreview": "Show thumbnails",
-            "updateButton": "Update navigation"
+            "updateButton": "Update navigation",
+            "sortBy": "Sort by",
+            "sortByAlph": "alphabet",
+            "sortByDate": "date",
+            "sortOr": "or"
         },
         "templates": {}
     };
@@ -116,11 +123,11 @@ define([
             updateButton: _.template('<button class="<%= classes.updateButton %>"><%= labels.updateButton %></button>'),
 
             sortList: _.template([
-                '<ul class="source_sort-list">',
-                    '<li class="source_sort-list_li">Sort by&nbsp;</li>',
-                    '<li class="source_sort-list_li"><a class="source_sort-list_a" id="sortByAlph" href="#sort=alph">alphabet</a></li>',
-                    '<li class="source_sort-list_li">&nbsp;or&nbsp;</li>',
-                    '<li class="source_sort-list_li"><a class="source_sort-list_a" id="sortByDate" href="#sort=date">date</a></li>',
+                '<ul class="<%= classes.sortList %>">',
+                    '<li class="<%= classes.sortListItem %>"><%= labels.sortBy %>&nbsp;</li>',
+                    '<li class="<%= classes.sortListItem %>"><a class="<%= classes.sortListItemLink %>" id="sortByAlph" href="#sort=alph"><%= labels.sortByAlph %></a></li>',
+                    '<li class="<%= classes.sortListItem %>">&nbsp;<%= labels.sortOr %>&nbsp;</li>',
+                    '<li class="<%= classes.sortListItem %>"><a class="<%= classes.sortListItemLink %>" id="sortByDate" href="#sort=date"><%= labels.sortByDate %></a></li>',
                 '</ul>'
             ].join(""))
         }, this.options.modulesOptions.globalNav.templates);
@@ -485,10 +492,17 @@ define([
      * @method renderSortFilters. It draws Sort Filters layout.
      */
     GlobalNav.prototype.renderSortFilters = function() {
+        var classes = this.options.modulesOptions.globalNav.classes;
+        var labels = this.options.modulesOptions.globalNav.labels;
+
         var defaultSort = this.options.modulesOptions.globalNav.sortType;
         var $filterWrapper = $("." + this.options.modulesOptions.globalNav.classes.catalogFilter);
+
         var enabledFilter = JSON.parse(localStorage.getItem("source_enabledFilter")) || {"sortType":defaultSort,"sortDirection":"forward"};
-        var nav = this.templates.sortList();
+        var nav = this.templates.sortList({
+            classes: classes,
+            labels: labels
+        });
         var _this = this;
 
         $filterWrapper.append(nav);
@@ -505,7 +519,7 @@ define([
             var sortType = $this.attr("id");
             var sortDirection = "backward";
 
-            $(".source_sort-list_li").removeClass("__active");
+            $(classes.sortListItem).removeClass("__active");
             $this.parent()
                 .addClass("__active")
                 .toggleClass("__forward");
@@ -520,7 +534,7 @@ define([
             _this.renderNavigation(sortType, sortDirection);
         };
 
-        $(document).on("click", ".source_sort-list_a", function() {
+        $(document).on("click", classes.sortListItemLink, function() {
             updateView($(this));
         });
     };

@@ -8,8 +8,10 @@ module.exports = {
         common: {
             defaultLogLevel: 'INFO',
             defaultProdLogLevel: 'ERROR',
-            includedDirs: ['docs'],
-            specPaths: ['specs'],
+            // includedDirs: ['docs'],
+            includedDirs: [],
+            // specPaths: ['specs'],
+            specPaths: [],
 
             // Turn on context level setting
             contextOptions: true,
@@ -66,7 +68,7 @@ module.exports = {
         tracking: {
             // Anonymous user statistics tracking.
             // Used to get insights about the community and improve engine usage experience.
-            enabled: true
+            enabled: false
         },
 
         // Limits EJS includes, allowing only files in project root
@@ -119,25 +121,25 @@ module.exports = {
         // Core modules
         modulesEnabled : {
             // Enable clarify helper links in spec
-            clarifyInSpec: true,
-            htmlAPISync: true,
-            headerFooter: true,
+            clarifyInSpec:   true,
+            htmlAPISync:     true,
+            headerFooter:    true,
             specDecorations: true,
-            codeSource: true,
-            sectionFolding: true,
+            codeSource:      true,
+            sectionFolding:  true,
             innerNavigation: true,
 
             // Trims paces in example sections to emulate HTML minify, off by default
-            trimSpaces: false,
-            scrollToHash: true,
-            sections: true,
-            globalNav: true,
-            search: true,
-            loadEvents: true,
-            navHighlight: true,
+            trimSpaces:      false,
+            scrollToHash:    true,
+            sections:        true,
+            globalNav:       true,
+            search:          true,
+            loadEvents:      true,
+            navHighlight:    true,
 
             // Enable github auth toolbar links
-            auth: false
+            auth:            false
         },
 
         modulesOptions : {
@@ -150,6 +152,23 @@ module.exports = {
                 autofocusOnNavigationPage: true,
                 autofocusOnSpecPage: false,
                 activateOnLoad: true
+            },
+
+            globalNav : {
+                "labels": {
+                    "noDataInCat":    "Пустой каталог",
+                    "linkToAllSpecs": "Все спецификации",
+                    "author" :        "Автор",
+                    "noDataAttr" :    "Пропущен атрибут data-nav",
+                    "loading":        "Загрузка…",
+                    "hidePreview":    "Скрыть миниатюры",
+                    "showPreview":    "Показать миниатюры",
+                    "updateButton":   "Обновить меню",
+                    "sortBy":         "Сортировать по",
+                    "sortByDate":     "дате",
+                    "sortByAlph":     "алфавиту",
+                    "sortOr":         "или"
+                }
             }
         },
 

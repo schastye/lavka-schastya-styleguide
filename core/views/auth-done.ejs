@@ -12,7 +12,7 @@
         window.addEventListener('load', function() {
             var data;
             try {
-               data = JSON.parse("<%= user %>".split("&quot;").join('"'));
+               data = JSON.parse("<%= user %>".split(/&quot;|&#34;/).join('"'));
             } catch(e) {
                 console.log('incorrect user data', e);
             }
